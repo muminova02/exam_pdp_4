@@ -16,7 +16,7 @@ public class AdminServiceImp implements AdminService {
         currentuser = user;
         while (true){
             switch (getInt("""
-                    methods
+                    addHotel
                     
                     
                     """)){
