@@ -38,8 +38,7 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public void addHotel() {
-
-
+      
     }
 
     @Override
