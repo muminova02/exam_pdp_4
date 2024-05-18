@@ -2,10 +2,12 @@ package uz.app.hotel.serviceImp;
 
 import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Reservation;
+import uz.app.hotel.enums.ReservationStates;
 import uz.app.hotel.service.ReservationService;
 import static uz.app.hotel.ui.Utils.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationServiceImp implements ReservationService {
@@ -34,26 +36,57 @@ public class ReservationServiceImp implements ReservationService {
 
     @Override
     public Reservation showReservation(String id) {
+        for (Reservation reservation : db.reservations) {
+            if (reservation.getId().equals(id)){
+                return reservation;
+            }
+        }
         return null;
     }
 
     @Override
-    public List<Reservation> showReservationByUser(String id) {
-        return null;
+    public List<Reservation> showReservationByUser(String username) {
+        List<Reservation> reservations = new ArrayList<>();
+        for (Reservation reservation : db.reservations) {
+            if (reservation.getUser().getUsername().equals(username)){
+                reservations.add(reservation);
+            }
+        }
+        return reservations;
     }
 
     @Override
     public List<Reservation> showReservationByHotel(String id) {
-        return null;
+        List<Reservation> reservations = new ArrayList<>();
+        for (Reservation reservation : db.reservations) {
+            if (reservation.getHotel().getId().equals(id)){
+                reservations.add(reservation);
+            }
+        }
+        return reservations;
     }
 
     @Override
-    public boolean cancelReservation(String id) {
+    public boolean cancelReservation(String id,ReservationStates state) {
+        for (Reservation reservation : db.reservations) {
+            if (reservation.getId().equals(id)){
+                reservation.setReservState(state);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean finishReservation(String id, LocalDate date) {
+        for (Reservation reservation : db.reservations) {
+            if (reservation.getId().equals(id)){
+                if (reservation.getEndDate().isBefore(date)){
+                    reservation.setReservState(ReservationStates.FINISH);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
