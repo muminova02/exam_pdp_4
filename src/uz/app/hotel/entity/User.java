@@ -1,5 +1,6 @@
 package uz.app.hotel.entity;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -7,11 +8,42 @@ public class User {
     private String name;
     private String username;
     private String password;
+    private double balance;
+    private Role role;
 
-    public User(String name, String username, String password) {
+
+    public User() {
         this.name = name;
         this.username = username;
         this.password = password;
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        User user = (User) object;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getName() {
@@ -45,6 +77,9 @@ public class User {
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", balance=" + balance +
+                ", role=" + role +
                 '}';
     }
+
 }
