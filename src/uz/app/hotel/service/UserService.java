@@ -1,7 +1,9 @@
 package uz.app.hotel.service;
 
+import uz.app.hotel.entity.User;
+
 public interface UserService {
-    void service();
+    void service(User user);
     void showHotels();
     void showReservations();
     void reserve();

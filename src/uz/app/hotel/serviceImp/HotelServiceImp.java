@@ -2,6 +2,7 @@ package uz.app.hotel.serviceImp;
 
 import uz.app.hotel.entity.Hotel;
 import uz.app.hotel.service.HotelService;
+import static uz.app.hotel.ui.Utils.*;
 
 import java.util.List;
 
@@ -30,4 +31,7 @@ public class HotelServiceImp implements HotelService {
     public boolean delete(String id) {
         return false;
     }
+
+
+
 }
