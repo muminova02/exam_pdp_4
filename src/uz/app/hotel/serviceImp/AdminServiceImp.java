@@ -10,19 +10,26 @@ public class AdminServiceImp implements AdminService {
     private DB dataBase = DB.getInstance();
 
 
+
     @Override
     public void service(User user) {
 
         currentuser = user;
         while (true){
             switch (getInt("""
-                    methods
-                    
+                    1 addHotel
+                    2 showHotel
+                    3 show Hotels
+                    4 edit Hotels
+                    5 
                     
                     """)){
                 case 0->{
                     System.out.println("By");
                     return;
+                }
+                case 1->{
+
                 }
             }
         }
@@ -31,6 +38,7 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public void addHotel() {
+
 
     }
 
