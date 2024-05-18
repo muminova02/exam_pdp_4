@@ -1,5 +1,7 @@
 package uz.app.hotel.entity;
 
+import uz.app.hotel.enums.ReservationStates;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ public class Reservation {
     private Integer room;
     private LocalDate startDate;
     private LocalDate endDate;
+    private ReservationStates reservState;
     private LocalDate earliestFinishedDate;
     private Boolean earlierFinished;
 
@@ -22,6 +25,7 @@ public class Reservation {
         this.room = room;
         this.startDate = startDate;
         this.endDate = endDate;
+        reservState=ReservationStates.ACTIVE;
     }
 
     public String getId() {
@@ -74,6 +78,14 @@ public class Reservation {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public ReservationStates getReservState() {
+        return reservState;
+    }
+
+    public void setReservState(ReservationStates reservState) {
+        this.reservState = reservState;
     }
 
     @Override
