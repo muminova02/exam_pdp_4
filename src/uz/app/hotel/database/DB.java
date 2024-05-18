@@ -18,4 +18,5 @@ public class DB {
     }
     public Set<User> users=new HashSet<>();
     public List<Hotel> hotelList=new ArrayList<>();
+
 }
