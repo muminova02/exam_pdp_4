@@ -20,10 +20,6 @@ public class DB {
             db=new DB();
         return db;
     }
-<<<<<<< HEAD
-    public Set<User> users=new HashSet<>();
-    public List<Hotel> hotelList=new ArrayList<>();
-=======
->>>>>>> 586723961af886144467a75c4d5a3d81b730bd86
+
 
 }
