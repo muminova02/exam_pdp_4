@@ -1,10 +1,31 @@
 package uz.app.hotel.serviceImp;
 
+import uz.app.hotel.database.DB;
+import uz.app.hotel.entity.User;
 import uz.app.hotel.service.AdminService;
+import static uz.app.hotel.ui.Utils.*;
 
 public class AdminServiceImp implements AdminService {
+    private User currentuser;
+    private DB dataBase = DB.getInstance();
+
+
     @Override
-    public void service() {
+    public void service(User user) {
+
+        currentuser = user;
+        while (true){
+            switch (getInt("""
+                    methods
+                    
+                    
+                    """)){
+                case 0->{
+                    System.out.println("By");
+                    return;
+                }
+            }
+        }
 
     }
 
@@ -51,5 +72,15 @@ public class AdminServiceImp implements AdminService {
     @Override
     public void reserveForUser() {
 
+    }
+
+
+
+    private static AdminServiceImp adminService;
+
+    public static AdminServiceImp getInstance() {
+        if (adminService == null)
+            adminService = new AdminServiceImp();
+        return adminService;
     }
 }
