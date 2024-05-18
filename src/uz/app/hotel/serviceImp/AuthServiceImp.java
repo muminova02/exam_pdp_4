@@ -4,15 +4,44 @@ import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Role;
 import uz.app.hotel.entity.User;
 import uz.app.hotel.service.AuthService;
+import static uz.app.hotel.ui.Utils.*;
 
 import java.util.Objects;
 
+import static uz.app.hotel.ui.Utils.getInt;
 import static uz.app.hotel.ui.Utils.scanStr;
 
 public class AuthServiceImp implements AuthService {
     static DB database = DB.getInstance();
     static AdminServiceImp adminService = AdminServiceImp.getInstance();
     static UserServiceImp userService = UserServiceImp.getInstance();
+
+
+
+    public void service(){
+        while (true) {
+            switch (getInt("""
+                    0 exit
+                    1 sign in
+                    2 sign up
+                    """)) {
+                case 0 -> {
+                    System.out.println("see you soon!");
+                    return;
+                }
+                case 1 -> {
+                    signIn();
+                }
+                case 2 -> {
+                    signUp();
+                }
+            }
+        }
+    }
+
+
+
+
     @Override
     public void signUp() {
         User user = new User();

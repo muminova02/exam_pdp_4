@@ -1,5 +1,7 @@
 package uz.app.hotel.entity;
 
+import uz.app.hotel.enums.HotelStates;
+
 import java.util.UUID;
 
 public class Hotel {
@@ -8,6 +10,7 @@ public class Hotel {
     private Location location;
     private Integer floors;
     private Integer roomsCount;
+    private HotelStates states;
 
     public Hotel(String name, Location location, Integer floors, Integer roomsCount) {
         this.name = name;
@@ -16,6 +19,18 @@ public class Hotel {
         this.roomsCount = roomsCount;
     }
 
+    public HotelStates getStates() {
+        return states;
+    }
+
+    public HotelStates setStates(HotelStates states) {
+        this.states = states;
+        return states;
+    }
+
+    public String getId() {
+        return id;
+    }
     public Integer getFloors() {
         return floors;
     }

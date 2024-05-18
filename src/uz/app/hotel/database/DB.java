@@ -1,10 +1,12 @@
 package uz.app.hotel.database;
 
+import uz.app.hotel.entity.Hotel;
 import uz.app.hotel.entity.User;
 import uz.app.hotel.service.AdminService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class DB {
@@ -15,5 +17,5 @@ public class DB {
         return db;
     }
     public Set<User> users=new HashSet<>();
-
+    public List<Hotel> hotelList=new ArrayList<>();
 }
