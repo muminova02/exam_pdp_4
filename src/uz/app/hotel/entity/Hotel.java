@@ -18,7 +18,6 @@ public class Hotel {
         this.floors = floors;
         this.roomsCount = roomsCount;
     }
-
     public HotelStates getStates() {
         return states;
     }
@@ -31,6 +30,7 @@ public class Hotel {
     public String getId() {
         return id;
     }
+
     public Integer getFloors() {
         return floors;
     }
