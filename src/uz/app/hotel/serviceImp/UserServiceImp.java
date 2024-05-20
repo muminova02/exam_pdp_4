@@ -4,6 +4,7 @@ import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Hotel;
 import uz.app.hotel.entity.Reservation;
 import uz.app.hotel.entity.User;
+import uz.app.hotel.service.HotelService;
 import uz.app.hotel.service.UserService;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class UserServiceImp implements UserService {
     private User currentuser;
     private DB dataBase = DB.getInstance();
     private ReservationServiceImp reserveServise= new ReservationServiceImp();
+    private HotelServiceImp hotelServiceImp = new HotelServiceImp();
 
     @Override
     public void service(User user) {
@@ -35,7 +37,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void showHotels() {
-
 
     }
 
