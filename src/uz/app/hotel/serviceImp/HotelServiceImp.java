@@ -43,11 +43,10 @@ public class HotelServiceImp implements HotelService {
 
     @Override
     public boolean edit(String id, Hotel hotel) {
-         String enterHotel=Utils.scanStr("Enter hotel id  ");
         for (Hotel hotel1 : db.hotelList) {
-            if(enterHotel.equals(hotel1.getId())){
-                hotel1 =hotel;
-                return  true;
+            if(id.equals(hotel1.getId())){
+               hotel1.setHotel(hotel);
+               return  true;
             }
         }
         return false;
@@ -55,14 +54,12 @@ public class HotelServiceImp implements HotelService {
 
     @Override
     public boolean delete(String id) {
-        String enterHotel=Utils.scanStr("Enter hotel id  ");
         for (Hotel hotel : db.hotelList) {
-            if (enterHotel.equals(hotel.getId())){
+            if (id.equals(hotel.getId())){
                 hotel.setStates(DELETED);
             }
             return true;
         }
-
         return false;
     }
 
