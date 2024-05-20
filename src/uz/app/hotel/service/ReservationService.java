@@ -1,6 +1,7 @@
 package uz.app.hotel.service;
 
 import uz.app.hotel.entity.Reservation;
+import uz.app.hotel.enums.ReservationStates;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +12,9 @@ public interface ReservationService {
     Reservation showReservation(String id);
     List<Reservation> showReservationByUser(String id);
     List<Reservation> showReservationByHotel(String id);
-    boolean cancelReservation(String id);// kim cancel qilgani va reserv id log ga yozib boriladi
-    boolean finishReservation(String id,LocalDate date);
+    boolean cancelReservation(String id,ReservationStates state);// kim cancel qilgani va reserv id log ga yozib boriladi
+
+
+    boolean finishReservation(String id, LocalDate date);
     boolean rescheduleReservation(String id, LocalDate from, LocalDate to);//
 }
