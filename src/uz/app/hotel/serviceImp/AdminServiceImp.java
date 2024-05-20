@@ -56,7 +56,7 @@ public class AdminServiceImp implements AdminService {
     @Override
     public void showHotel() {
 
-        hotelService.show()
+        hotelService.show();
 
     }
 

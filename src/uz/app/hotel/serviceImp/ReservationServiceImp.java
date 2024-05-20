@@ -97,12 +97,16 @@ public class ReservationServiceImp implements ReservationService {
 
 
 
-    public void testMuqaddas(){
+    private String delateTsts(){
         System.out.println("""
-                Muqaddas test qilib ko'rayabdi
-                me3 qo'shilib keldi
+                sadfasdf
+                sadfsdf
+                test Barchinoy
                 """);
+        return "hi";
     }
+
+
 
 
 }
