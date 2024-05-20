@@ -13,9 +13,14 @@ public class User {
 
 
     public User() {
+
+    }
+    public User(String name,String username,String password,Double balance,Role role){
         this.name = name;
         this.username = username;
         this.password = password;
+        this.balance = balance;
+        this.role = role;
     }
     @Override
     public boolean equals(Object object) {
