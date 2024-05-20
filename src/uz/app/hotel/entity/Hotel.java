@@ -62,6 +62,15 @@ public class Hotel {
     public void setLocation(Location location) {
         this.location = location;
     }
+    public void setHotel(Hotel hotel){
+        this.setName(hotel.getName());
+        this.setLocation(hotel.getLocation());
+        this.setFloors(hotel.getFloors());
+        this.setRoomsCount(hotel.getRoomsCount());
+        this.setStates(hotel.getStates());
+    }
+
+
 
     @Override
     public String toString() {
