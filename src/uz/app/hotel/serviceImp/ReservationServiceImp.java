@@ -4,7 +4,6 @@ import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Reservation;
 import uz.app.hotel.enums.ReservationStates;
 import uz.app.hotel.service.ReservationService;
-import static uz.app.hotel.ui.Utils.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class ReservationServiceImp implements ReservationService {
     }
 
     @Override
-    public boolean cancelReservation(String id,ReservationStates state) {
+    public boolean cancelReservation(String id, ReservationStates state) {
         for (Reservation reservation : db.reservations) {
             if (reservation.getId().equals(id)){
                 reservation.setReservState(state);
@@ -76,15 +75,6 @@ public class ReservationServiceImp implements ReservationService {
         }
         return false;
     }
-    private String delateTsts(){
-        System.out.println("""
-                sadfasdf
-                sadfsdf
-                test Barchinoy
-                """);
-        return "hi";
-    }
-
 
     @Override
     public boolean finishReservation(String id, LocalDate date) {
@@ -97,15 +87,6 @@ public class ReservationServiceImp implements ReservationService {
             }
         }
         return false;
-    }
-
-    private String delateTsts(){
-        System.out.println("""
-                sadfasdf
-                sadfsdf
-                test Barchinoy
-                """);
-        return "hi";
     }
 
 
