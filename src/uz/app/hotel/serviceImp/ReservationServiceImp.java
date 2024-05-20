@@ -97,6 +97,13 @@ public class ReservationServiceImp implements ReservationService {
 
 
 
+    public String testMuqaddas(){
+        System.out.println("""
+                Muqaddas test qilib ko'rayabdi
+                
+                """);
+        return "ji";
+    }
 
 
 }
