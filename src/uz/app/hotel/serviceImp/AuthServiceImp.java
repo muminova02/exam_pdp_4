@@ -47,11 +47,9 @@ public class AuthServiceImp implements AuthService {
         User user = new User();
         System.out.println();
         user.setName(scanStr("enter name"));
-        System.out.println();
         user.setUsername(scanStr("enter username"));
-        System.out.println();
         user.setPassword(scanStr("enter password"));
-        user.setName(String.valueOf(Role.USER));
+        user.setRole(Role.USER);
         user.setBalance(100000.0);
         if (database.users.add(user)) {
             System.out.println("successfully registered!");

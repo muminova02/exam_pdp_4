@@ -154,9 +154,9 @@ public class AdminServiceImp implements AdminService {
         LocalDate parse1;
         LocalDate parse2;
         while (true) {
-            String sana1 = scanStr(" boshlanish sanani kiriting (dd-mm-yyyy)");
+            String sana1 = scanStr(" boshlanish sanani kiriting (yyyy-mm-dd): ");
             parse1 = LocalDate.parse(sana1);
-            String sana2 = scanStr("tugash sanani kiriting (dd-mm-yyyy)");
+            String sana2 = scanStr("tugash sanani kiriting (yyyy-mm-dd): ");
             parse2 = LocalDate.parse(sana2);
             if (parse1.isBefore(parse2)) {
                 Reservation reservation = new Reservation(currentuser, hotel, floor, room, parse1, parse2);
