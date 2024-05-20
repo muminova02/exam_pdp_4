@@ -76,6 +76,15 @@ public class ReservationServiceImp implements ReservationService {
         }
         return false;
     }
+    private String delateTsts(){
+        System.out.println("""
+                sadfasdf
+                sadfsdf
+                test Barchinoy
+                """);
+        return "hi";
+    }
+
 
     @Override
     public boolean finishReservation(String id, LocalDate date) {
@@ -97,14 +106,7 @@ public class ReservationServiceImp implements ReservationService {
 
 
 
-    private String delateTsts(){
-        System.out.println("""
-                sadfasdf
-                sadfsdf
-                test Barchinoy
-                """);
-        return "hi";
-    }
+
 
 
 
