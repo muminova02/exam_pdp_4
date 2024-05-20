@@ -2,6 +2,7 @@ package uz.app.hotel.serviceImp;
 
 import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Reservation;
+import uz.app.hotel.entity.Role;
 import uz.app.hotel.enums.ReservationStates;
 import uz.app.hotel.service.ReservationService;
 
@@ -20,17 +21,21 @@ public class ReservationServiceImp implements ReservationService {
         LocalDate date=reservation.getStartDate();
         LocalDate date2=reservation.getEndDate();
         for (Reservation reservation1 : db.reservations) {
-            if (reservation1.getHotel().getId().equals(reservation.getHotel().getId()) &&
-                    reservation1.getFloor().equals(floor) &&
-                    reservation1.getRoom().equals(room)) {
+            if (checkReserveAdd(reservation, reservation1, floor, room)) {
                 if (date.isAfter(reservation1.getEndDate()) || date2.isBefore(reservation1.getStartDate())) {
                     db.reservations.add(reservation);
                     return true;
                 } else return false;
             }
-
         }
-        return false;
+        db.reservations.add(reservation);
+        return true;
+    }
+
+    private static boolean checkReserveAdd(Reservation reservation, Reservation reservation1, Integer floor, Integer room) {
+        return reservation1.getReservState().equals(ReservationStates.ACTIVE) && reservation1.getHotel().getId().equals(reservation.getHotel().getId()) &&
+                reservation1.getFloor().equals(floor) &&
+                reservation1.getRoom().equals(room);
     }
 
     @Override
@@ -79,7 +84,7 @@ public class ReservationServiceImp implements ReservationService {
     @Override
     public boolean finishReservation(String id, LocalDate date) {
         for (Reservation reservation : db.reservations) {
-            if (reservation.getId().equals(id)){
+            if (reservation.getReservState().equals(ReservationStates.ACTIVE)&&reservation.getId().equals(id)){
                 if (reservation.getEndDate().isBefore(date)){
                     reservation.setReservState(ReservationStates.FINISH);
                     return true;
@@ -93,7 +98,31 @@ public class ReservationServiceImp implements ReservationService {
 
     @Override
     public boolean rescheduleReservation(String id, LocalDate from, LocalDate to) {
-        return false;
+        Reservation reservation=null;
+        for (Reservation reservationDb : db.reservations) {
+            if (reservationDb.getId().equals(id))
+               reservation=reservationDb;
+        }
+        if (reservation == null){
+            return false;
+        }
+        reservation.setReservState(ReservationStates.CANCELEDBYUSER);
+        Integer floor=reservation.getFloor();
+        Integer room=reservation.getRoom();
+        for (Reservation reservationDb2 : db.reservations) {
+            if (checkReserveAdd(reservation,reservationDb2,floor,room)){
+                if (from.isAfter(reservationDb2.getEndDate()) || to.isBefore(reservationDb2.getStartDate())) {
+                    reservation.setStartDate(from);
+                    reservation.setEndDate(to);
+                    reservation.setReservState(ReservationStates.ACTIVE);
+                    return true;
+                } else return false;
+            }
+        }
+        reservation.setStartDate(from);
+        reservation.setEndDate(to);
+        reservation.setReservState(ReservationStates.ACTIVE);
+        return true;
     }
 
 
