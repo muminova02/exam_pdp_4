@@ -97,12 +97,11 @@ public class ReservationServiceImp implements ReservationService {
 
 
 
-    public String testMuqaddas(){
+    public void testMuqaddas(){
         System.out.println("""
                 Muqaddas test qilib ko'rayabdi
-                
+                me3 qo'shilib keldi
                 """);
-        return "ji";
     }
 
 
