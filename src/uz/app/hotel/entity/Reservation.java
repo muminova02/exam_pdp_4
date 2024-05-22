@@ -14,11 +14,12 @@ public class Reservation {
     private LocalDate startDate;
     private LocalDate endDate;
     private ReservationStates reservState;
+    private double prise;
     private LocalDate earliestFinishedDate;
     private Boolean earlierFinished;
 
 
-    public Reservation(User user, Hotel hotel, Integer floor, Integer room, LocalDate startDate, LocalDate endDate) {
+    public Reservation(User user, Hotel hotel, Integer floor, Integer room, LocalDate startDate, LocalDate endDate,double prise) {
         this.user = user;
         this.hotel = hotel;
         this.floor = floor;
@@ -26,6 +27,15 @@ public class Reservation {
         this.startDate = startDate;
         this.endDate = endDate;
         reservState=ReservationStates.ACTIVE;
+        this.prise=prise;
+    }
+
+    public double getPrise() {
+        return prise;
+    }
+
+    public void setPrise(double prise) {
+        this.prise = prise;
     }
 
     public String getId() {
@@ -98,6 +108,7 @@ public class Reservation {
                 ", room=" + room +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", reservState=" + reservState +
                 '}';
     }
 }
