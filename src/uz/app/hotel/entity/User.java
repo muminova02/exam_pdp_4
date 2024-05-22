@@ -22,6 +22,12 @@ public class User {
         this.balance = balance;
         this.role = role;
     }
+
+    public User(String anonimName) {
+        this.name = anonimName;
+        this.role=Role.ANNONYMOUS_USER;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;

@@ -18,11 +18,22 @@ public interface Utils {
 
     static int getInt(String text) {
         try {
-            System.out.println(text);
+            System.out.print(text);
             String n = scannerStr.nextLine();
             return Integer.parseInt(n);
         } catch (Exception e) {
             return getInt(text);
         }
     }
+
+    static int showBalanceMenu() {
+        return getInt("""
+                1.MyBalance
+                2.Pul qo'shish
+                0.Exit
+                
+                choose: 
+                """);
+    }
+
 }

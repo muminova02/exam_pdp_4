@@ -47,8 +47,8 @@ public class AuthServiceImp implements AuthService {
         User user = new User();
         System.out.println();
         user.setName(scanStr("enter name"));
-        user.setUsername(scanStr("enter username"));
-        user.setPassword(scanStr("enter password"));
+        user.setUsername(scanStr("enter username: "));
+        user.setPassword(scanStr("enter password: "));
         user.setRole(Role.USER);
         user.setBalance(100000.0);
         if (database.users.add(user)) {
@@ -60,8 +60,8 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public void signIn() {
-        String username = scanStr("enter username");
-        String password = scanStr("enter passwrd");
+        String username = scanStr("enter username: ");
+        String password = scanStr("enter passwrd: ");
         for (User user : database.users) {
             if (Objects.equals(user.getUsername(), username) &&
                     Objects.equals(user.getPassword(), password)) {

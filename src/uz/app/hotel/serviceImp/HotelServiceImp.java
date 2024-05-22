@@ -55,10 +55,10 @@ public class HotelServiceImp implements HotelService {
     @Override
     public boolean delete(String id) {
         for (Hotel hotel : db.hotelList) {
-            if (id.equals(hotel.getId())){
+            if (hotel.getId().equals(id)){
                 hotel.setStates(DELETED);
+                return true;
             }
-            return true;
         }
         return false;
     }

@@ -3,19 +3,22 @@ package uz.app.hotel.serviceImp;
 import uz.app.hotel.database.DB;
 import uz.app.hotel.entity.Reservation;
 import uz.app.hotel.entity.Role;
+import uz.app.hotel.entity.User;
 import uz.app.hotel.enums.ReservationStates;
 import uz.app.hotel.service.ReservationService;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationServiceImp implements ReservationService {
+    private final Double roomPrise = 100_000d;
+    private final Double jarima= 50_000d;
 
     private DB db = DB.getInstance();
     @Override
     public boolean addReservation(Reservation reservation) {
-
         Integer floor = reservation.getFloor();
         Integer room=reservation.getRoom();
         LocalDate date=reservation.getStartDate();
@@ -23,13 +26,14 @@ public class ReservationServiceImp implements ReservationService {
         for (Reservation reservation1 : db.reservations) {
             if (checkReserveAdd(reservation, reservation1, floor, room)) {
                 if (date.isAfter(reservation1.getEndDate()) || date2.isBefore(reservation1.getStartDate())) {
-                    db.reservations.add(reservation);
-                    return true;
+                        db.reservations.add(reservation);
+                        return true;
                 } else return false;
             }
         }
-        db.reservations.add(reservation);
-        return true;
+            db.reservations.add(reservation);
+            return true;
+
     }
 
     private static boolean checkReserveAdd(Reservation reservation, Reservation reservation1, Integer floor, Integer room) {
@@ -52,7 +56,7 @@ public class ReservationServiceImp implements ReservationService {
     public List<Reservation> showReservationByUser(String username) {
         List<Reservation> reservations = new ArrayList<>();
         for (Reservation reservation : db.reservations) {
-            if (reservation.getUser().getUsername().equals(username)){
+            if (!reservation.getUser().getRole().equals(Role.ANNONYMOUS_USER)&&reservation.getUser().getUsername().equals(username)){
                 reservations.add(reservation);
             }
         }
@@ -125,6 +129,11 @@ public class ReservationServiceImp implements ReservationService {
         return true;
     }
 
+    public Double getRoomPrise() {
+        return roomPrise;
+    }
 
-
+    public Double getJarima() {
+        return jarima;
+    }
 }

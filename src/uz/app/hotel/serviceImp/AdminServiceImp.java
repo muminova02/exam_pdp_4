@@ -1,10 +1,7 @@
 package uz.app.hotel.serviceImp;
 
 import uz.app.hotel.database.DB;
-import uz.app.hotel.entity.Hotel;
-import uz.app.hotel.entity.Location;
-import uz.app.hotel.entity.Reservation;
-import uz.app.hotel.entity.User;
+import uz.app.hotel.entity.*;
 import uz.app.hotel.enums.ReservationStates;
 import uz.app.hotel.service.AdminService;
 import uz.app.hotel.service.HotelService;
@@ -21,13 +18,12 @@ import static uz.app.hotel.ui.Utils.*;
 public class AdminServiceImp implements AdminService {
     private User currentuser;
     private DB dataBase = DB.getInstance();
-    HotelServiceImp hotelService=new HotelServiceImp();
-    ReservationService resService=new ReservationServiceImp();
+     HotelServiceImp hotelService=new HotelServiceImp();
+     ReservationServiceImp resService=new ReservationServiceImp();
 
 
     @Override
     public void service(User user) {
-
         currentuser = user;
         while (true){
             switch (getInt("""
@@ -39,6 +35,7 @@ public class AdminServiceImp implements AdminService {
                     6 Show users
                     7 Show reservation history
                     8 Reservayion for user
+                    9 Cansel reservation
                     0 Exit ;)
                     
                     """)){
@@ -54,6 +51,7 @@ public class AdminServiceImp implements AdminService {
                 case 6-> showUsers();
                 case 7-> showReservationHistory();
                 case 8-> reserveForUser();
+                case 9->calcelReservation();
             }
         }
 
@@ -82,8 +80,9 @@ public class AdminServiceImp implements AdminService {
     }
     @Override
     public void showHotels() {
+            int i=1;
             for (Hotel hotel : dataBase.hotelList) {
-                System.out.println(hotel);
+                System.out.println((i++) +"-> " +hotel);
             }
     }
     @Override
@@ -95,8 +94,8 @@ public class AdminServiceImp implements AdminService {
             String id = Utils.scanStr("Enter hotel id : ");
             String name = Utils.scanStr("Enter hotel name : ");
             Location location = Location.valueOf(Utils.scanStr("Enter hotel location : "));
-            Integer floor = Utils.getInt("Enter hotel floor : ");
-            Integer roomcount = Utils.getInt("Enter hotel roomcount : ");
+            Integer floor = Utils.getInt("Enter hotel floor: ");
+            Integer roomcount = Utils.getInt("Enter hotel roomcount: ");
             Hotel hotel = new Hotel(name, location, floor, roomcount);
             hotelService.edit(id, hotel);
         }
@@ -123,10 +122,11 @@ public class AdminServiceImp implements AdminService {
             System.out.println("Reservation is not yet ");
         } else {
             for (Reservation reservation : dataBase.reservations) {
-                if (reservation.getReservState().equals(ReservationStates.FINISH) || reservation.getReservState().equals(ReservationStates.CANCELEDBYADMIN) ||
-                        reservation.getReservState().equals(ReservationStates.CANCELEDBYUSER)) {
-                    System.out.println(reservation);
-                }
+//                if (reservation.getReservState().equals(ReservationStates.FINISH) || reservation.getReservState().equals(ReservationStates.CANCELEDBYADMIN) ||
+//                        reservation.getReservState().equals(ReservationStates.CANCELEDBYUSER)) {
+//                    System.out.println(reservation);
+//                }
+                System.out.println(reservation);
             }
         }
     }
@@ -147,19 +147,29 @@ public class AdminServiceImp implements AdminService {
     @Override
     public void reserveForUser() {
         showHotels();
+        String anonimName=scanStr("Enter name: ");
         int hotelNum = getInt("choose Hotel: ");
         Hotel hotel = dataBase.hotelList.get(hotelNum - 1);
-        Integer floor = getInt("enter floor num");
-        Integer room = getInt("enter room num");
+        Integer floor = getInt("enter floor num: ");
+        Integer room = getInt("enter room num: ");
+        if (floor>hotel.getFloors()||floor==0&&room>hotel.getRoomsCount()||room==0){
+            System.out.println("etaj va xona raqamlarini to'g'ri kiriting.");
+            return;
+        }
         LocalDate parse1;
         LocalDate parse2;
         while (true) {
-            String sana1 = scanStr(" boshlanish sanani kiriting (yyyy-mm-dd): ");
+            String sana1 = scanStr("boshlanish sanani kiriting (yyyy-mm-dd): ");
             parse1 = LocalDate.parse(sana1);
             String sana2 = scanStr("tugash sanani kiriting (yyyy-mm-dd): ");
             parse2 = LocalDate.parse(sana2);
             if (parse1.isBefore(parse2)) {
-                Reservation reservation = new Reservation(currentuser, hotel, floor, room, parse1, parse2);
+                int dayOfYear = parse1.getDayOfYear();
+                int dayofyear2 = parse2.getDayOfYear();
+                double countDay = (double) dayofyear2-dayOfYear;
+                double allPrise = countDay*resService.getRoomPrise();
+                Reservation reservation = new Reservation(new User(anonimName), hotel, floor, room, parse1, parse2,allPrise);
+                System.out.println("Eslatma>> Jami narx: " + allPrise + " sum bo'ladi");
                 if (resService.addReservation(reservation)) {
                     System.out.println("Aytilgan sanaga yozildingiz");
                 } else {

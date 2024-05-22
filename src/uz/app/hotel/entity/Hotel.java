@@ -17,14 +17,14 @@ public class Hotel {
         this.location = location;
         this.floors = floors;
         this.roomsCount = roomsCount;
+        this.states = HotelStates.ACTIVE;
     }
     public HotelStates getStates() {
         return states;
     }
 
-    public HotelStates setStates(HotelStates states) {
+    public void setStates(HotelStates states) {
         this.states = states;
-        return states;
     }
 
     public String getId() {
@@ -71,7 +71,6 @@ public class Hotel {
     }
 
 
-
     @Override
     public String toString() {
         return "Hotel{" +
@@ -80,6 +79,7 @@ public class Hotel {
                 ", location=" + location +
                 ", floors=" + floors +
                 ", roomsCount=" + roomsCount +
+                ", states=" + states +
                 '}';
     }
 }
